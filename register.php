@@ -4,67 +4,12 @@
     require_once 'config/config.php';
 ?>
 
-<!DOCTYPE html>
-<html lang="en">
+<?php 
+require_once 'config/config.php'; 
 
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Register</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link href="https://getbootstrap.com/docs/5.2/assets/css/docs.css" rel="stylesheet">
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
-    <link rel="stylesheet" href="style.css">
-</head>
-
-<body>
-<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-        <div class="container-fluid">
-            <a class="navbar-brand" href="index.php">
-                <img src="img/lo1.png" alt="Bootstrap" width="70" height="50">
-            </a>
-            <!-- <a class="navbar-brand" href="#">Navbar</a> -->
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
-                data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
-                aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                    <li class="nav-item">
-                        <a class="nav-link active" aria-current="page" href="index.php">Home</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">หมวดหมู่สินค้า</a>
-                    </li>
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
-                            aria-expanded="false">
-                            ประเภทอาหาร
-                        </a>
-                        <ul class="dropdown-menu">
-                            <li><a class="dropdown-item" href="#">เนื้อสัตว์แช่แข็ง</a></li>
-                            <li><a class="dropdown-item" href="#">ผักและผลไม้</a></li>
-                            <li><a class="dropdown-item" href="#">อาหารทะเลแช่แข็ง</a></li>
-                            <li><a class="dropdown-item" href="#">อาหารสำเร็จรูป</a></li>
-                        </ul>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link">สินค้าแนะนำ</a>
-                    </li>
-                </ul>
-                <ul class="nav navbar-nav navbar-right">
-                    <li class="nav-item">
-                        <a class="nav-link" href="login.php">Login</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="register.php">Register</a>
-                    </li>
-                </ul>
-            </div>
-        </div>
-    </nav>
+include('includes/header.php'); 
+include('includes/navbarnos.php'); 
+?>
 
     <div class="container">
         <h3 class="mt-4">สมัครสมาชิก</h3>
@@ -100,36 +45,48 @@
 
 
             <div class="col-md-6">
-                <label for="username" class="form-label">Username</label>
+                <label for="username" class="form-label">Username <span>*</span></label>
                 <input type="text" class="form-control" name="username" aria-describedby="username">
             </div>
             <div class="col-md-6">
-                <label for="email" class="form-label">Email</label>
+                <label for="email" class="form-label">Email <span>*</span></label>
                 <input type="email" class="form-control" name="email" aria-describedby="email">
             </div>
             <div class="col-md-6">
-                <label for="password" class="form-label">Password</label>
+                <label for="password" class="form-label">Password <span>*</span></label>
                 <input type="password" class="form-control" name="password">
             </div>
             <div class="col-md-6">
-                <label for="confirm password" class="form-label">Confirm Password</label>
+                <label for="confirm password" class="form-label">Confirm Password <span>*</span></label>
                 <input type="password" class="form-control" name="c_password">
             </div>
             <div class="col-md-6">
-                <label for="firstname" class="form-label">ชื่อ</label>
+                <label for="firstname" class="form-label">ชื่อ <span>*</span></label>
                 <input type="text" class="form-control" name="firstname" aria-describedby="firstname">
             </div>
             <div class="col-md-6">
-                <label for="lastname" class="form-label">นามสกุล</label>
+                <label for="lastname" class="form-label">นามสกุล <span>*</span></label>
                 <input type="text" class="form-control" name="lastname" aria-describedby="lastname">
             </div>
             <div class="col-md-6">
-                <label for="telephone" class="form-label">เบอร์โทรศัพท์</label>
+                <label for="telephone" class="form-label">เบอร์โทรศัพท์ <span>*</span></label>
                 <input type="text" class="form-control" name="telephone" aria-describedby="telephone">
             </div>
             <div class="md-5">
-                <label for="address" class="form-label">ที่อยู่</label>
+                <label for="address" class="form-label">ที่อยู่ <span>*</span></label>
                 <input type="text" class="form-control" name="address" aria-describedby="address">
+            </div>
+            <div class="col-md-6">
+                <label for="district" class="form-label">อำเภอ <span>*</span></label>
+                <input type="text" class="form-control" id="district" required>
+            </div>
+            <div class="col-md-6">
+                <label for="province" class="form-label">จังหวัด <span>*</span></label>
+                <input type="text" class="form-control" id="province" required>
+            </div>
+            <div class="col-md-3">
+                <label for="zipcode" class="form-label">รหัสไปรษณีย์ <span>*</span></label>
+                <input type="text" class="form-control" id="zipcode" required>
             </div>
             <div class="col-12">
                 <button type="submit" name="signup" class="btn btn-primary">สมัครสมาชิก</button>
@@ -140,6 +97,4 @@
     </div>
 
     </div>
-</body>
-
-</html>
+    <?php require_once 'includes/footer.php';  ?>

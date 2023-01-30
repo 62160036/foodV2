@@ -1,5 +1,7 @@
 <?php 
 
+
+
     session_start();
     require_once 'config/config.php';
 
@@ -12,7 +14,11 @@
         $lastname = $_POST['lastname'];
         $telephone = $_POST['telephone'];
         $address = $_POST['address'];
+        $district = $_POST['district'];
+        $province = $_POST['province'];
+        $zipcode = $_POST['zipcode'];
         $urole = 'user';
+
 
         if(empty($username)) {
             $_SESSION['error'] = 'กรุณากรอก Username';
@@ -47,21 +53,29 @@
         }else if (empty($address)) {
             $_SESSION['error'] = 'กรุณากรอกที่อยู่';
             header("location: register.php");
+        }else if (empty($district)){   
+            $_SESSION['error'] = 'กรุณากรอกอำเภอ';
+            header("location: register.php");
+        }else if (empty($province)) {
+            $_SESSION['error'] = 'กรุณากรอกจังหวัด';
+            header("location: register.php");
+        }else if (empty($zipcode)) {
+            $_SESSION['error'] = 'รหัสไปรษณีย์';
+            header("location: register.php");
         }else{
             try {
-
+              
                 $check_email = $conn->prepare("SELECT email FROM users WHERE email = :email");
                 $check_email->bindParam(":email", $email);
                 $check_email->execute();
-                $row = $check_email->fetch(PDO::FETCH_ASSOC);
-
+                $row = $check_email->fetch(PDO::FETCH_ASSOC);          
                 if ($row['email'] == $email) {
                     $_SESSION['warning'] = "มีอีเมลนี้อยู่ในระบบแล้ว <a href='login.php'>คลิ๊กที่นี่</a> เพื่อเข้าสู่ระบบ";
                     header("location: login.php");
                 }else if (!isset($_SESSION['error'])) {
                     $passwordHash = password_hash($password, PASSWORD_DEFAULT);
-                    $stmt = $conn->prepare("INSERT INTO users(firstname, lastname, email, password, username, telephone, address, urole) 
-                                            VALUES(:firstname, :lastname, :email, :password, :username, :telephone, :address, :urole)");
+                    $stmt = $conn->prepare("INSERT INTO users(firstname, lastname, email, password, username, telephone, address, district, province, zipcode, urole) 
+                                            VALUES(:firstname, :lastname, :email, :password, :username, :telephone, :address, district, province, zipcode, :urole)");
                     $stmt->bindParam(':firstname', $firstname);
                     $stmt->bindParam(':lastname', $lastname);
                     $stmt->bindParam(':email', $email);
@@ -69,6 +83,9 @@
                     $stmt->bindParam(':username', $username);
                     $stmt->bindParam(':telephone', $telephone);
                     $stmt->bindParam(':address', $address);
+                    $stmt->bindParam(':district', $district);
+                    $stmt->bindParam(':province', $province);
+                    $stmt->bindParam(':zipcode', $zipcode);
                     $stmt->bindParam(':urole', $urole);
                     $stmt->execute();
                     $_SESSION['success'] = "สมัครสมาชิกเรียบร้อยแล้ว! <a href='login.php' class='alert-link'>คลิกที่นี่เพื่อนเข้าสู่ระบบ</a>";

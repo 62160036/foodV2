@@ -7,3 +7,7 @@ body {
     font-size: 120%;
     background: #dddada;
 }
+
+span {
+    color: #ff0000;
+}
